@@ -27,7 +27,8 @@
 			var newHash = window.location.hash;
 			if (oldHash !== newHash) {
 				oldHash = newHash;
-				$.trigger(ohcEvent);
+				hash = window.location.hash;
+				$.trigger(ohcEvent, hash);
 			}
 		}
 	
