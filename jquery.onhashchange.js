@@ -15,7 +15,10 @@
 	'use strict';
 	
 	$.fn.onhashchange = function(fn){
-		var oldHandler, newHandler, ohcWatcher, watchDelay = 50, oldHash, ohcEvent = 'hashchange';
+		var oldHandler, newHandler, ohcWatcher, oldHash,
+				watchDelay = 50,
+				ohcEvent = 'hashchange',
+				routeEvent = 'route';
 		
 		if (typeof fn === 'function') {
 			newHandler = fn;
@@ -27,8 +30,7 @@
 			var newHash = window.location.hash;
 			if (oldHash !== newHash) {
 				oldHash = newHash;
-				hash = window.location.hash;
-				$.trigger(ohcEvent, hash);
+				$.trigger(ohcEvent);
 			}
 		}
 	
@@ -46,6 +48,11 @@
 		if (newHandler !== undefined) {
 			$.on(ohcEvent, newHandler);
 		}
+		
+		$.on(ohcEvent, function(){
+			var hash = window.location.hash;
+			$.trigger('route', hash);
+		});
 		
 	};
 	
